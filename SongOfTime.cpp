@@ -10,6 +10,10 @@
 int isOpenTask();
 char* createCurString(char*);
 char* getFilePath(char *fName);
+int isOpenTask();
+int openTask(char *taskName);
+int closeTask();
+int createBaseHTMLFile();
 
 
 int main(int argc, char *argv[ ])
