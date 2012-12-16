@@ -37,11 +37,11 @@ songoftime -s "TaskName"
 To stop tracking time spend on a task (or 'finish' it):
 songoftime -f
 
-These commands will keep track timing information in a file stored 
-in a '.timeSong.html' file in the users home directory.
+These commands will keep track of timing information in a file stored 
+in a hidden file(s) in the users home directory.
 
 Statistics can then be reported on the command line using:
 songoftime -r
 
 Alternatively, usage statistics can be viewed in a browser window
-by opening the .timeSong.html file.
+by opening a produced html file.
