@@ -4,9 +4,13 @@
 #include <stdlib.h>
 #include <ctime>
 #include <string.h>
+#include <sys/types.h>
+#include <pwd.h>
 
 int isOpenTask();
 char* createCurString(char*);
+char* getFilePath(char *fName);
+
 
 int main(int argc, char *argv[ ])
 {
@@ -190,4 +194,30 @@ char* createCurString(char *taskStringPtr)
 	free(dateString);
 
 	return curString;
+}
+
+//Gets homedirectory of user, and appends the provided name to give a full filepath
+//Retval: ptr
+//	NULL- on malloc failure
+//	Valid Ptr- on success
+char* getFilePath(char *fName)
+{
+	if(fName==NULL)
+		return NULL;
+
+	struct passwd *pw=getpwuid(getuid());
+	const char *homedir=pw->pw_dir;
+
+	//Create buffer for filePath
+	char *filePath=(char *)malloc((strlen(homedir)+strlen(fName)+2)*sizeof(char));
+	if(filePath==NULL)
+	{
+		return NULL;
+	}
+
+	strcpy(filePath,homedir);
+	strcat(filePath,"/");
+	strcat(filePath,fName);
+
+	return filePath;
 }
