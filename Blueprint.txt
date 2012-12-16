@@ -1,0 +1,48 @@
+This document holds a basic plan/layout for a completed
+SongOfTime utility.
+
+The SongOfTime utility interacts with several hidden files stored
+on in the users home directory.  Using home directory storage should
+allow users to remain separate on multi user computers.  These two
+files and their usage are discussed below.
+
+.timeSong.html
+--------------
+This file is used to hold the list of all tasks.
+The information for each task should be..."
+"TaskName	TotalTimeOpened		LastTouched(Date)".
+This information is stored in addition to section headers
+
+A sample file is shown delimited by file tags below:
+<FILE>
+<html>
+<head></head>
+<body>
+<h2>Task Data</h2>
+<pre>
+\"Worked On SoT\"	1 hour, 15 minutes	December 16, 2012
+\"Goofed off on Chrome\"	0 hours, 15 minutes	December 15, 2012
+\"Started Pandora\"	0 hours, 0 minutes	December 17, 2012
+</pre>
+</body>
+</html>
+</FILE>
+
+
+.curTask.sot
+------------
+This file is used simply to hold the current task in and start time.
+It is used only for a task that has been open, but not closed.
+It should only contain a single line.
+
+Should be formatted as:
+"TaskName	TimeOpenedInMillis	DataStamp(?)"
+
+
+
+
+
+Questions:
+----------
+1)How can I get the home directory in C++?
+2)Is there a standard date object I can use in C++?
