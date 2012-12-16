@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int
-main(int argc, char *argv[ ])
+int isOpenTask();
+
+int main(int argc, char *argv[ ])
 {
 	//Used for reading retval from getopt
     	int c;
@@ -57,7 +58,7 @@ main(int argc, char *argv[ ])
 	else if(startFlag==1)//Start command
 	{
 		//check if a task is already being tracked- (already open)
-		int alreadyOpen;
+		int alreadyOpen=isOpenTask();
 		if(alreadyOpen==1)//Print error message and quit
 		{
 			printf("\nA task is already being tracked.  Please close task before continuing");
@@ -70,7 +71,7 @@ main(int argc, char *argv[ ])
 	else if(finishFlag==1)//Task finish command
 	{
 		//Check if a task is currently being tracked (already open)
-		int alreadyOpen;
+		int alreadyOpen=isOpenTask();
 		if(!alreadyOpen==0)//If no task is open, print error message and quit
 		{
 			printf("A task is not currently being tracked.  Please set task to be tracked");
@@ -82,7 +83,38 @@ main(int argc, char *argv[ ])
 	else if(reportFlag==1)//Report time statistics via command line
 	{
 
-	}
+	}   
+}
 
-    
+
+//Checks if a task is currently open
+//Retval: int
+//	1- if task is open
+//	0- if no task is open
+int isOpenTask()
+{
+	return -1;
+}
+
+//Does work of writing to task file
+//char * taskName : String containing task to close in file
+//Retval: int
+//	0- on success
+//	1- on file found error
+//	2- on file write/read permissions error
+//	3- on file formatting exception.
+int openTask(char *taskName)
+{
+	return -1;
+}
+
+//Does work of closing task in file, and updating statistics
+//Retval: int
+//	0- on success
+//	1- on file found error
+//	2- on file read/write permissions error
+//	3- on file formattig exception
+int closeTask()
+{
+	return -1;
 }
