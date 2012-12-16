@@ -1,6 +1,9 @@
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctime>
+
 
 int isOpenTask();
 
@@ -83,7 +86,11 @@ int main(int argc, char *argv[ ])
 	else if(reportFlag==1)//Report time statistics via command line
 	{
 
-	}   
+	}
+
+	char *testString=(char *)malloc(sizeof(char)*20);
+	strcpy(testString,"This Is Test");
+	createCurString(&testString);   
 }
 
 
@@ -113,8 +120,28 @@ int openTask(char *taskName)
 //	0- on success
 //	1- on file found error
 //	2- on file read/write permissions error
-//	3- on file formattig exception
+//	3- on file formatting exception
 int closeTask()
 {
 	return -1;
+}
+
+//Does work of writing base HTML code for timeSong.thml
+//Retval: int
+//	0- on success
+//	1- on file write permissions error
+int createBaseHTMLFile()
+{
+	return -1;
+}
+
+//Writes string to provided pointer position
+//Provided string looks like: "TaskName       TimeOpenedInMillis      DateStamp"
+//Retval: int
+//	0- on success
+//	1- on null or bad argument
+int createCurString(char **stringPtr)
+{
+	
+	return -1;	
 }
