@@ -3,9 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctime>
-
+#include <string.h>
 
 int isOpenTask();
+char* createCurString(char*);
 
 int main(int argc, char *argv[ ])
 {
@@ -88,9 +89,6 @@ int main(int argc, char *argv[ ])
 
 	}
 
-	char *testString=(char *)malloc(sizeof(char)*20);
-	strcpy(testString,"This Is Test");
-	createCurString(&testString);   
 }
 
 
@@ -137,11 +135,59 @@ int createBaseHTMLFile()
 
 //Writes string to provided pointer position
 //Provided string looks like: "TaskName       TimeOpenedInMillis      DateStamp"
-//Retval: int
-//	0- on success
-//	1- on null or bad argument
-int createCurString(char **stringPtr)
+//Retval: char *
+//	valid ptr- on success
+//	null- on null or bad argument
+char* createCurString(char *taskStringPtr)
 {
+	//Check for bad error conditions
+	if(taskStringPtr==NULL)
+	{
+		return NULL;
+	}
+
+	//String length needed is:
+	//	 lengthof(taskName) + 1(tab delimit) + approx size of%ld + 1(tab delimit)+10(YYYY-MM-DD)+2 (\n, \0)
+	int lengthNeeded=strlen(taskStringPtr)+1+11+1+10+2+5;
+	char *curString=(char *)malloc(lengthNeeded*sizeof(char));
+
+	//Check malloc return value
+	if(curString==NULL)
+		return NULL;
 	
-	return -1;	
+	strcpy(curString,taskStringPtr);//Copy in the taskName
+	strcat(curString,"\t");//Add tab delimit
+
+	//Get time() value into string
+	time_t curTime=time(0);
+	char *timeValue=(char *)malloc(sizeof(char)*13);
+	if(timeValue==NULL)
+	{
+		free(curString);
+		return NULL;
+	}
+	sprintf(timeValue,"%ld\0",curTime);
+	strcat(curString,timeValue);
+
+	strcat(curString,"\t");//Add second tab delimit
+
+	//Add datestring
+	char *dateString=(char *)malloc(11*sizeof(char));
+	if(dateString==NULL)
+	{
+		free(timeValue);
+		free(curString);
+		return NULL;
+	}
+	struct tm * now = localtime( & curTime );
+	sprintf(dateString,"%d-%d-%d",now->tm_year+1900,now->tm_mon+1,now->tm_mday);
+	strcat(curString,dateString);
+
+	strcat(curString,"\n\0");//Add newline and string ender
+	
+	//Free temp buffers
+	free(timeValue);
+	free(dateString);
+
+	return curString;
 }
