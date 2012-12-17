@@ -6,6 +6,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include <fstream>
 
 int isOpenTask();
 char* createCurString(char*);
@@ -106,7 +107,16 @@ int main(int argc, char *argv[ ])
 //	0- if no task is open
 int isOpenTask()
 {
-	return -1;
+	char *filePath=getFilePath(".curTask.sot");
+	ifstream curTaskFile(filePath);
+	if(curTaskFile.good())
+	{
+		return(1);
+	}
+	else
+	{
+		return(0);
+	}
 }
 
 //Does work of writing to task file
