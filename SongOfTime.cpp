@@ -117,6 +117,8 @@ int isOpenTask()
 	{
 		return(0);
 	}
+
+	curTaskFile.close();
 }
 
 //Does work of writing to task file
@@ -128,9 +130,23 @@ int isOpenTask()
 //	3- on file formatting exception.
 int openTask(char *taskName)
 {
-
+	//Get filepath
 	char *filePath=getFilePath(".curTask.sot");
-	return -1;
+
+	//Create ofile object
+	std::ofstream outFile(filePath);
+
+	//Return error code if unable to open file
+	if(!outFile)
+		return(1);
+
+	//Get string to write
+	char *curString=createCurString(taskName);
+	if(curString==NULL)
+		return(2);
+
+	outFile << curString;
+	return 0;
 }
 
 //Does work of closing task in file, and updating statistics
@@ -216,7 +232,7 @@ char* createCurString(char *taskStringPtr)
 //Retval: ptr
 //	NULL- on malloc failure
 //	Valid Ptr- on success
-char* getFilePath(char *fName)
+char* getFilePath(const char *fName)
 {
 	if(fName==NULL)
 		return NULL;
