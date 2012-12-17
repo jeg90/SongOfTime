@@ -79,6 +79,14 @@ int main(int argc, char *argv[ ])
 			exit(0);
 		}
 		
+		if(startTitle==NULL)
+		{
+			printf("\nA task must be entered for tracking.");
+			printf("\n\tTry: songoftime -s \"TaskName\"");
+		}
+
+		openTask(startTitle);
+		
 		
 	}
 	else if(finishFlag==1)//Task finish command
@@ -232,7 +240,7 @@ char* createCurString(char *taskStringPtr)
 //Retval: ptr
 //	NULL- on malloc failure
 //	Valid Ptr- on success
-char* getFilePath(const char *fName)
+char* getFilePath(char *fName)
 {
 	if(fName==NULL)
 		return NULL;
