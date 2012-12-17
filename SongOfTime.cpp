@@ -108,7 +108,7 @@ int main(int argc, char *argv[ ])
 int isOpenTask()
 {
 	char *filePath=getFilePath(".curTask.sot");
-	ifstream curTaskFile(filePath);
+	std::ifstream curTaskFile(filePath);
 	if(curTaskFile.good())
 	{
 		return(1);
@@ -128,6 +128,8 @@ int isOpenTask()
 //	3- on file formatting exception.
 int openTask(char *taskName)
 {
+
+	char *filePath=getFilePath(".curTask.sot");
 	return -1;
 }
 
