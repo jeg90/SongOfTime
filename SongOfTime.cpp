@@ -263,9 +263,59 @@ int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate
 	}
 	else//the file already exists.  Must be read in (not our first task)
 	{
-		
+		//Open file
+		std::ifstream taskFile(allTasksPath);
+
+		//Get number of structs
+		taskFile.read((char *)&numStructs,sizeof(int));
+
+		///////////////////////////////////////////
+		//Read in struct objects from file
+		int taskExistsFlag=-1;
+		Task taskArr[numStructs+1];
+		int i=0;
+		for(i=0;i<numStructs;i++)
+		{
+			taskFile.read((char *)(taskArr+i),sizeof(Task));
+			if(strcmp(taskArr[i].taskString,taskName)==0)
+			{
+				taskExistsFlag=i;
+			}
+		}
+		taskFile.close();
+		////////////////////////////////////////////
+
+
+		////////////////////////////////////////////
+		//Update struct information as appropriate
+		//A matching task was not found in the array
+		if(taskExistsFlag==-1)
+		{
+			strncpy(taskArr[numStructs].taskString,newTask.taskString,512);
+			strncpy(taskArr[numStructs].dateString,newTask.dateString,512);
+			taskArr[numStructs].millisWorked=newTask.millisWorked;
+			numStructs++;
+		}
+		else//A matching task was found in the array at index taskExistsFlag
+		{
+			strncpy(taskArr[taskExistsFlag].dateString,newTask.dateString,512);
+			taskArr[taskExistsFlag].millisWorked=taskArr[taskExistsFlag].millisWorked+newTask.millisWorked;
+		}
+		/////////////////////////////////////////////
+
+
+		/////////////////////////////////////////////
+		//Rewrite struct information back into file
+		std::ofstream taskFileWriter(allTasksPath);
+		taskFileWriter.write((char *)&numStructs,sizeof(int));//Write number of structs
+		for(i=0;i<numStructs;i++)
+		{
+			taskFileWriter.write((char *)(taskArr+i),sizeof(Task));
+		}
+		taskFileWriter.close();
+		/////////////////////////////////////////////
+		return 0;		
 	}
-	return -1;
 }
 
 //Does work of writing base HTML code for timeSong.thml
