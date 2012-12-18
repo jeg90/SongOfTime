@@ -7,6 +7,26 @@ Created by: Jason Gerlowski
 University of Pittsburgh
 jeg90@pitt.edu
 
+STATUS
+------
+Version 1.0 has been placed on github after initial development.
+Both -s and -f options have been implemented.
+Reports can be viewed by opening the .timeSong.html file (located in
+user's home directory) with a web browser.
+
+The command line -r option implementation has been delayed until after
+initial testing.  I will be taking a week or two to use V1.  I 
+plan to use the time to consider feature additions and different
+options.
+
+Several things I'm considering adding:
+-o opens .timeSong.html in web browser automatically
+-c clears all history
+"-m Task1 Task2" merges the times for two already existing tasks
+	(potentially useful for spelling errors).
+
+Development will resume on 12/26 (Happy Holidays!)
+
 GOALS
 -----
 There's plenty of time management software out there.  Most of
