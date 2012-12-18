@@ -19,13 +19,14 @@ int openTask(char *taskName);
 int closeTask();
 int createBaseHTMLFile();
 int checkExists(char *filePath);
-
+int updateHTMLFile();
+int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate);
 
 //Stuct to hold Task objects
 typedef struct
 {
-        char[512] dateString;
-        char[512] taskString;
+        char dateString[512];
+        char taskString[512];
         long millisWorked;
 } Task;
 
@@ -213,10 +214,13 @@ int closeTask()
 	if(inFile.good() )
 	{
 		inFile.getline(readBuffer,512);//Reads curTask.sot into buff
+		inFile.close();
+		remove(filePath);//Delete the file
 	}
 	else//File was not found, or was empty
 	{
 		free(readBuffer);
+		inFile.close();
 		return(1);
 	}
 
