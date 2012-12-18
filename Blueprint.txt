@@ -38,7 +38,10 @@ It should only contain a single line.
 Should be formatted as:
 "TaskName	TimeOpenedInMillis	DataStamp(?)"
 
-
+.allTasks.sot
+-------------
+This file is used to hold all tasks since the beginning of time.
+It is a binary file holding directly written task structs.
 
 
 
