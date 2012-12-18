@@ -11,10 +11,8 @@
 //these up when I'm finished.
 
 //Function declarations
-int isOpenTask();
 char* createCurString(char*);
 char* getFilePath(char *fName);
-int isOpenTask();
 int openTask(char *taskName);
 int closeTask();
 int createBaseHTMLFile();
@@ -85,7 +83,7 @@ int main(int argc, char *argv[ ])
 	else if(startFlag==1)//Start command
 	{
 		//check if a task is already being tracked- (already open)
-		int alreadyOpen=isOpenTask();
+		int alreadyOpen=checkExists(getFilePath(".curTask.sot"));
 		if(alreadyOpen==1)//Print error message and quit
 		{
 			printf("\nA task is already being tracked.  Please close task before continuing");
@@ -106,7 +104,7 @@ int main(int argc, char *argv[ ])
 	else if(finishFlag==1)//Task finish command
 	{
 		//Check if a task is currently being tracked (already open)
-		int alreadyOpen=isOpenTask();
+		int alreadyOpen=checkExists(getFilePath(".curTask.sot"));
 		if(alreadyOpen==0)//If no task is open, print error message and quit
 		{
 			printf("A task is not currently being tracked.  Please set task to be tracked");
@@ -144,26 +142,6 @@ int checkExists(char *fPath)
 	}
 }
 
-
-//Checks if a task is currently open
-//Retval: int
-//	1- if task is open
-//	0- if no task is open
-int isOpenTask()
-{
-	char *filePath=getFilePath(".curTask.sot");
-	std::ifstream curTaskFile(filePath);
-	if(curTaskFile.good())
-	{
-		return(1);
-	}
-	else
-	{
-		return(0);
-	}
-
-	curTaskFile.close();
-}
 
 //Does work of writing to task file
 //char * taskName : String containing task to close in file
