@@ -215,7 +215,7 @@ int closeTask()
 	
 
 	free(readBuffer);
-	return -1;
+	return 0;
 }
 
 //Updates the .timeSong.html file
@@ -234,6 +234,37 @@ int updateHTMLFile()
 //	1- on File I/O Error
 int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate)
 {
+	int numStructs=0;
+
+	//Create new Task object
+	Task newTask;
+	strncpy(newTask.dateString,lastStartDate,512);
+	strncpy(newTask.taskString,taskName,512);
+	long curTime=time(0);
+	long oldTime=atol(curStartMillis);
+	newTask.millisWorked=(curTime-oldTime);
+
+	//Get filepath and check if it exists
+	char *allTasksPath=getFilePath(".allTasks.sot");
+	int allTasksExists=checkExists(allTasksPath);
+	
+	//If the file doesnt exists yet (this is our first task)
+	if(allTasksExists==0)
+	{
+		//Open new file and write the cur number of tasks
+		std::ofstream myFile(allTasksPath);
+		numStructs=1;
+		myFile.write((char *)&numStructs,sizeof(int));
+
+		//Write struct object to file
+		myFile.write((char *)&newTask,sizeof(Task));
+		myFile.close();
+		return 0;
+	}
+	else//the file already exists.  Must be read in (not our first task)
+	{
+		
+	}
 	return -1;
 }
 
