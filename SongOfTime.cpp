@@ -224,6 +224,26 @@ int closeTask()
 //	1- on File I/O Error
 int updateHTMLFile()
 {
+	//Create file handle and buffer
+	std::ofstream htmlFileWriter(getFilePath(".timeSong.html"));
+	char writeBuffer[512];
+
+	//Copy in basic header html information
+	strcpy(writeBuffer,"<html><head></head><body><h2>Recent Tasks and Times</h2>")
+	htmlFileWriter.write(writeBuffer,strlen(writeBuffer));
+
+	/////////////////////////////////////////
+	//Read in struct information
+	/////////////////////////////////////////
+
+	/////////////////////////////////////////
+	//Write struct info to HTML file
+	/////////////////////////////////////////
+
+	//Copy in finishing tag information
+	strcpy(writeBuffer,"</body></html>");
+	htmlFileWriter.write(writeBuffer,strlen(writeBuffer));
+	htmlFileWriter.close();	
 	return -1;
 }
 
