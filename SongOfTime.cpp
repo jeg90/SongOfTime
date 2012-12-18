@@ -1,4 +1,3 @@
-
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,7 +6,11 @@
 #include <sys/types.h>
 #include <pwd.h>
 #include <fstream>
+//This list of includes is getting a little out of
+//hand for such a small project...should clean
+//these up when I'm finished.
 
+//Function declarations
 int isOpenTask();
 char* createCurString(char*);
 char* getFilePath(char *fName);
@@ -15,6 +18,16 @@ int isOpenTask();
 int openTask(char *taskName);
 int closeTask();
 int createBaseHTMLFile();
+int checkExists(char *filePath);
+
+
+//Stuct to hold Task objects
+typedef struct
+{
+        char[512] dateString;
+        char[512] taskString;
+        long millisWorked;
+} Task;
 
 
 int main(int argc, char *argv[ ])
@@ -93,12 +106,14 @@ int main(int argc, char *argv[ ])
 	{
 		//Check if a task is currently being tracked (already open)
 		int alreadyOpen=isOpenTask();
-		if(!alreadyOpen==0)//If no task is open, print error message and quit
+		if(alreadyOpen==0)//If no task is open, print error message and quit
 		{
 			printf("A task is not currently being tracked.  Please set task to be tracked");
 			printf("\n\tTry: songoftime -s \"TaskName\"");
 			exit(0);
 		}
+
+		closeTask();
 		
 	}
 	else if(reportFlag==1)//Report time statistics via command line
@@ -106,6 +121,26 @@ int main(int argc, char *argv[ ])
 
 	}
 
+}
+
+//Checks if a given filepath exists already or not
+//Retval: int
+//	0- if specified file doesnt exist.
+//	1- if specified file does exist
+int checkExists(char *fPath)
+{
+	if(fPath==NULL)
+		return 0;
+
+	std::ifstream inFile(fPath);
+	if(inFile.good() )
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 
@@ -164,6 +199,58 @@ int openTask(char *taskName)
 //	2- on file read/write permissions error
 //	3- on file formatting exception
 int closeTask()
+{
+	//Create read buffer
+	char *readBuffer=(char *)malloc(512*sizeof(char));
+	if(readBuffer==NULL)
+	{
+		return(2);
+	}
+
+	//Get filepath of curTask.sot file, open reader
+	char *filePath=getFilePath(".curTask.sot");
+	std::ifstream inFile(filePath);	
+	if(inFile.good() )
+	{
+		inFile.getline(readBuffer,512);//Reads curTask.sot into buff
+	}
+	else//File was not found, or was empty
+	{
+		free(readBuffer);
+		return(1);
+	}
+
+	//split read buffer around tabs to get tokens
+	char *name=strtok(readBuffer,"\t\n");
+	char *millis=strtok(NULL,"\t\n");
+	char *date=strtok(NULL,"\t\n");
+	
+	//Update .allTasks.sot file
+	updateAllTasksFile(name,millis,date);
+	//Update .timeSong.html file
+	updateHTMLFile();
+	
+	
+
+	free(readBuffer);
+	return -1;
+}
+
+//Updates the .timeSong.html file
+//Retval: int
+//	0- on success
+//	1- on File I/O Error
+int updateHTMLFile()
+{
+	return -1;
+}
+
+
+//Updates the .allTasks.sot, which holds binary structs of each task
+//Retval: int
+//	0- on success
+//	1- on File I/O Error
+int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate)
 {
 	return -1;
 }
