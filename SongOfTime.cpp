@@ -227,24 +227,51 @@ int updateHTMLFile()
 	//Create file handle and buffer
 	std::ofstream htmlFileWriter(getFilePath(".timeSong.html"));
 	char writeBuffer[512];
+	int numStructs;
 
 	//Copy in basic header html information
-	strcpy(writeBuffer,"<html><head></head><body><h2>Recent Tasks and Times</h2>")
+	strcpy(writeBuffer,"<html><head></head><body><h2>Recent Tasks and Times</h2>");
 	htmlFileWriter.write(writeBuffer,strlen(writeBuffer));
 
 	/////////////////////////////////////////
 	//Read in struct information
+        std::ifstream taskFile(getFilePath(".allTasks.sot"));
+
+        //Get number of structs
+        taskFile.read((char *)&numStructs,sizeof(int));
+
+        int taskExistsFlag=-1;
+        Task taskArr[numStructs];
+        int i=0;
+        for(i=0;i<numStructs;i++)
+        {
+             taskFile.read((char *)(taskArr+i),sizeof(Task));
+        }
+        taskFile.close();
 	/////////////////////////////////////////
 
 	/////////////////////////////////////////
 	//Write struct info to HTML file
+	char *indivPrintBuffer=(char *)malloc(sizeof(char)*512);
+	for(i=0;i<numStructs;i++)
+	{
+		//Get hours and minutes worked by taking advantage of a little integer division
+		int hWorked=taskArr[i].millisWorked/60/60;
+		int mWorked=(taskArr[i].millisWorked-hWorked*60*60)/60;
+		sprintf(indivPrintBuffer,"Task: %s\tTime:%d hours, %d minutes\tLast Worked:  %s",taskArr[i].taskString,hWorked,mWorked,taskArr[i].dateString);
+		
+		strcpy(writeBuffer,"<p>");
+		strcat(writeBuffer,indivPrintBuffer);
+		strcat(writeBuffer,"</p>");
+		htmlFileWriter.write(writeBuffer,strlen(writeBuffer));
+	}
 	/////////////////////////////////////////
 
 	//Copy in finishing tag information
 	strcpy(writeBuffer,"</body></html>");
 	htmlFileWriter.write(writeBuffer,strlen(writeBuffer));
 	htmlFileWriter.close();	
-	return -1;
+	return 0;
 }
 
 
