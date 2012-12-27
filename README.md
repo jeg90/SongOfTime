@@ -20,9 +20,10 @@ plan to use the time to consider feature additions and different
 options.
 
 Several things I'm considering adding:
--o opens .timeSong.html in web browser automatically
--c clears all history
-"-m Task1 Task2" merges the times for two already existing tasks
+1) Add clean, make, and install options
+2) -o opens .timeSong.html in web browser automatically
+3) -c clears all history
+4) "-m Task1 Task2" merges the times for two already existing tasks
 	(potentially useful for spelling errors).
 
 Development will resume on 12/26 (Happy Holidays!)
