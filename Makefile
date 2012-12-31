@@ -27,14 +27,6 @@ man1 = $(exec_prefix)/man/
 infodir = $(prefix)/info
 
 #### End of system configuration section. ####
-#exec_prefix = '$(prefix)';
-#libdir = '$(exec_prefix)/lib';
-#datadir = '$(prefix)/lib';
-#statedir = '$(prefix)/lib';
-#includedir = '$(prefix)/include';
-#oldincludedir = "";
-#mandir = '$(prefix)/man/man1';
-#manext = '.1'
 
 
 #Source file variables
@@ -46,6 +38,7 @@ songoftime:
 	$(CC) -o $@ $(SRC1)
 
 clean:
+	rm -f $(srcdir)/songoftime
 	echo "Clean completed"
 
 install: all
