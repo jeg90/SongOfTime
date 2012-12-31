@@ -134,7 +134,7 @@ int main(int argc, char *argv[ ])
 	}
 	else if(listFlag==1)//List all tasks in history via command line
 	{
-		printf("Unimplemented feature.  Will be added in V1.1 (currently 1.0)");
+		printf("\n");//Move to new line
 		listTasks();
 		exit(0);
 	}
