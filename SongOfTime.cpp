@@ -132,6 +132,7 @@ int main(int argc, char *argv[ ])
 	else if(listFlag==1)//List all tasks in history via command line
 	{
 		printf("Unimplemented feature.  Will be added in V1.1 (currently 1.0)");
+		listTasks();
 		exit(0);
 	}
 
@@ -227,6 +228,33 @@ int closeTask()
 
 	free(readBuffer);
 	return 0;
+}
+
+//Called for -l option
+//Prints tasks to console
+//Retval: void
+void listTasks()
+{
+	//Check if .allTasks.sot exists
+	//If it does()
+	//	read from file
+	//if it doesnt
+		//print that no tasks are present
+	
+
+	//Check if .allTasks.sot exists
+	int allTasksExists=checkExists( getFilePath((char *)".allTasks.sot") );
+
+	//If it does
+	if(allTasksExists)
+	{
+		//Read from file
+	}
+	else//If it doesn't
+	{
+		//Print that no tasks are present
+		printf("No tasks found in current history");
+	}
 }
 
 //////////////////////////////////////////////////////////////
