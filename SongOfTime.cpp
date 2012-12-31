@@ -83,7 +83,7 @@ int main(int argc, char *argv[ ])
 	else if(startFlag==1)//Start command
 	{
 		//check if a task is already being tracked- (already open)
-		int alreadyOpen=checkExists(getFilePath(".curTask.sot"));
+		int alreadyOpen=checkExists(getFilePath((char *)".curTask.sot"));
 		if(alreadyOpen==1)//Print error message and quit
 		{
 			printf("\nA task is already being tracked.  Please close task before continuing");
@@ -104,7 +104,7 @@ int main(int argc, char *argv[ ])
 	else if(finishFlag==1)//Task finish command
 	{
 		//Check if a task is currently being tracked (already open)
-		int alreadyOpen=checkExists(getFilePath(".curTask.sot"));
+		int alreadyOpen=checkExists(getFilePath((char *)".curTask.sot"));
 		if(alreadyOpen==0)//If no task is open, print error message and quit
 		{
 			printf("A task is not currently being tracked.  Please set task to be tracked");
@@ -153,7 +153,7 @@ int checkExists(char *fPath)
 int openTask(char *taskName)
 {
 	//Get filepath
-	char *filePath=getFilePath(".curTask.sot");
+	char *filePath=getFilePath((char *)".curTask.sot");
 
 	//Create ofile object
 	std::ofstream outFile(filePath);
@@ -187,7 +187,7 @@ int closeTask()
 	}
 
 	//Get filepath of curTask.sot file, open reader
-	char *filePath=getFilePath(".curTask.sot");
+	char *filePath=getFilePath((char *)".curTask.sot");
 	std::ifstream inFile(filePath);	
 	if(inFile.good() )
 	{
@@ -225,7 +225,7 @@ int closeTask()
 int updateHTMLFile()
 {
 	//Create file handle and buffer
-	std::ofstream htmlFileWriter(getFilePath(".timeSong.html"));
+	std::ofstream htmlFileWriter(getFilePath((char *)".timeSong.html"));
 	char writeBuffer[512];
 	int numStructs;
 
@@ -235,7 +235,7 @@ int updateHTMLFile()
 
 	/////////////////////////////////////////
 	//Read in struct information
-        std::ifstream taskFile(getFilePath(".allTasks.sot"));
+        std::ifstream taskFile(getFilePath((char *)".allTasks.sot"));
 
         //Get number of structs
         taskFile.read((char *)&numStructs,sizeof(int));
@@ -292,7 +292,7 @@ int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate
 	newTask.millisWorked=(curTime-oldTime);
 
 	//Get filepath and check if it exists
-	char *allTasksPath=getFilePath(".allTasks.sot");
+	char *allTasksPath=getFilePath((char *)".allTasks.sot");
 	int allTasksExists=checkExists(allTasksPath);
 	
 	//If the file doesnt exists yet (this is our first task)
