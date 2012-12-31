@@ -14,19 +14,16 @@ Both -s and -f options have been implemented.
 Reports can be viewed by opening the .timeSong.html file (located in
 user's home directory) with a web browser.
 
-The command line -r option implementation has been delayed until after
-initial testing.  I will be taking a week or two to use V1.  I 
-plan to use the time to consider feature additions and different
-options.
+Initial testing has been completed.  The following additions will take place
+in this sprint.
+1) -l option will list all tasks in descending order of time spent
+2) -r option will report Statistics concerning the tracked tasks
 
-Several things I'm considering adding:
-1) Add clean, make, and install options
-2) -o opens .timeSong.html in web browser automatically
-3) -c clears all history
-4) "-m Task1 Task2" merges the times for two already existing tasks
+Several things I'm considering adding in the future (after another usage iteration):
+1) -o opens .timeSong.html in web browser automatically
+2) -c clears all history
+3) "-m Task1 Task2" merges the times for two already existing tasks
 	(potentially useful for spelling errors).
-
-Development will resume on 12/26 (Happy Holidays!)
 
 GOALS
 -----
@@ -65,4 +62,4 @@ Statistics can then be reported on the command line using:
 songoftime -r
 
 Alternatively, usage statistics can be viewed in a browser window
-by opening a produced html file.
+by opening a produced html file (.timeSong.html found in the users home directory)
