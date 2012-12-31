@@ -1,3 +1,30 @@
 .TH songoftime 1 "31 Dec 2012" "version 1.0"
 .SH NAME
 songoftime - A Time Tracking Utility for Linux
+.SH SYNOPSIS
+songoftime [-s "Task Name"] [-f] 
+.SH DESCRIPTION
+.B songoftime 
+is a utility for tracking time spent on different tasks.  This may be useful for
+curiosity's sake, for improvement purposes, or for time tracking at work.
+.PP
+Blocks of time are tracked by bracketing them with
+.B songoftime
+commands (using the -s option to start, and the -f option to end 
+respectively).  Statistics can then be displayed to the user using the -r 
+option.
+.SH OPTIONS
+.IP "-s \'Task Name\' "
+begin tracking a task with the given task name enclosed in quotes
+.IP -f
+finish tracking the current task.
+.IP -r
+report tracking statistics to the console. (Unimplemented)
+.SH SEE ALSO
+No related commands.
+.SH BUGS
+No known bugs.  Product is in initial development however, and feature set
+is incomplete and subject to change.
+.SH AUTHOR
+Jason Gerlowski (jeg90@pitt.edu)
+
