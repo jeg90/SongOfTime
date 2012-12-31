@@ -10,6 +10,14 @@
 //hand for such a small project...should clean
 //these up when I'm finished.
 
+//Stuct to hold Task objects
+typedef struct
+{
+        char dateString[512];
+        char taskString[512];
+        long millisWorked;
+} Task;
+
 //Function declarations
 char* createCurString(char*);
 char* getFilePath(char *fName);
@@ -19,14 +27,9 @@ int createBaseHTMLFile();
 int checkExists(char *filePath);
 int updateHTMLFile();
 int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate);
+void listTasks();
+int readTasksToBuffer(Task **, int *);
 
-//Stuct to hold Task objects
-typedef struct
-{
-        char dateString[512];
-        char taskString[512];
-        long millisWorked;
-} Task;
 
 
 /////////////////////////////////////////////////
@@ -83,7 +86,7 @@ int main(int argc, char *argv[ ])
     	}
 
 	//Error case: bad args configuration
-	if(errFlag==1 || (startFlag==1 && finishFlag==1) || (startFlag==0 && finishFlag==0))
+	if(errFlag==1 || (startFlag==1 && finishFlag==1) || (startFlag==0 && finishFlag==0 && listFlag==0))
 	{
 		printf("\nImproper arguments, Try: songoftime [-s TaskName] [-f] [-r]\n");
 		exit(0);
@@ -248,7 +251,15 @@ void listTasks()
 	//If it does
 	if(allTasksExists)
 	{
-		//Read from file
+		int numTasks=0;
+		Task *taskBuffer;
+		readTasksToBuffer(&taskBuffer,&numTasks);
+		int i=0;
+		for(i=0;i<numTasks;i++)
+		{
+			printf("\t%s\n",taskBuffer[i].taskString);
+		}
+		free(taskBuffer);
 	}
 	else//If it doesn't
 	{
@@ -271,6 +282,53 @@ void listTasks()
 //	basic bool routines etc.
 //////////////////////////////////////////////////////////////
 
+//Reads Task structs into a buffer
+//Retval: int
+//	0- successful execution
+//	-1-.allTasks.sot file doesn't exists
+//	-2-Buffer allocation error (failed malloc)
+//	-3-File I/O Problems
+//	-4-Invalid argument(s)
+int readTasksToBuffer(Task** buffer,int *numTasks)
+{
+	if(numTasks==NULL || buffer==NULL)
+	{
+		return(-4);
+	}
+
+	//Return error if file doesn't exist
+	if( checkExists(getFilePath((char *)".allTasks.sot"))==0 )
+	{
+		return(-1);
+	}
+        
+
+	//Open file
+	char *allTasksPath=getFilePath((char *)".allTasks.sot");
+        std::ifstream taskFile(allTasksPath);
+
+	if(!taskFile.good())
+	{
+		return (-3);
+	}
+	
+        //Get number of structs
+        taskFile.read((char *)numTasks,sizeof(int));
+
+        ///////////////////////////////////////////
+        //Read in structs from file
+        *buffer=(Task *) malloc( (*numTasks)*sizeof(Task) );
+        int i=0;
+        for(i=0;i<(*numTasks);i++)
+        {
+        	taskFile.read((char *)( (*buffer)+i),sizeof(Task));
+        }
+        taskFile.close();
+
+	//Return 0 for success.
+	return 0;
+}
+ 
 //Checks if a given filepath exists already or not
 //Retval: int
 //	0- if specified file doesnt exist.
