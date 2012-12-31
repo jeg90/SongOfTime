@@ -8,6 +8,7 @@ SHELL = /bin/bash
 #### Start of system configuration section. ####
 
 srcdir = .
+docdir = $(srcdir)/Documentation
 
 CC = g++
 INSTALL = /usr/bin/install -c
@@ -21,6 +22,8 @@ exec_prefix = $(prefix)
 bindir = $(exec_prefix)/bin
 
 #directory to install info files in
+mandir = $(exec_prefix)/man/man1
+man1 = $(exec_prefix)/man/
 infodir = $(prefix)/info
 
 #### End of system configuration section. ####
@@ -47,4 +50,6 @@ clean:
 
 install: all
 	$(INSTALL) songoftime $(bindir)/songoftime
-	#$(INSTALLDATA) $(srcdir)/songoftime.info* $(infodir)
+	mkdir -p $(man1)
+	mkdir -p $(mandir)
+	$(INSTALLDATA) $(docdir)/songoftime.1 $(mandir)/
