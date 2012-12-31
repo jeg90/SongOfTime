@@ -29,6 +29,9 @@ typedef struct
 } Task;
 
 
+/////////////////////////////////////////////////
+//Begin main execution
+/////////////////////////////////////////////////
 int main(int argc, char *argv[ ])
 {
 	//Used for reading retval from getopt
@@ -39,6 +42,7 @@ int main(int argc, char *argv[ ])
 	int startFlag=0;
 	int finishFlag=0;
 	int reportFlag=0;
+	int listFlag=0;
 
 	//Start Title 
     	char *startTitle=NULL;
@@ -48,7 +52,7 @@ int main(int argc, char *argv[ ])
     	extern int optind, optopt;
 
 	//Iterate through command line options to set mode flags
-    	while ((c = getopt(argc, argv, "s:fr?")) != -1) 
+    	while ((c = getopt(argc, argv, "s:frl?")) != -1) 
 	{
         	switch(c) 
 		{
@@ -66,6 +70,9 @@ int main(int argc, char *argv[ ])
 			case 'r':
 				reportFlag=1;
 				break;
+			case 'l':
+				listFlag=1;
+				break;
             		case ':':       /* -f or -o without operand */
                     		errFlag=1;
                     		break;
@@ -78,7 +85,8 @@ int main(int argc, char *argv[ ])
 	//Error case: bad args configuration
 	if(errFlag==1 || (startFlag==1 && finishFlag==1) || (startFlag==0 && finishFlag==0))
 	{
-		printf("\nImproper arguments, Try: songoftime [-s TaskName] [-f] [-r]");
+		printf("\nImproper arguments, Try: songoftime [-s TaskName] [-f] [-r]\n");
+		exit(0);
 	}
 	else if(startFlag==1)//Start command
 	{
@@ -87,14 +95,15 @@ int main(int argc, char *argv[ ])
 		if(alreadyOpen==1)//Print error message and quit
 		{
 			printf("\nA task is already being tracked.  Please close task before continuing");
-			printf("\n\tTry: songoftime -f");
+			printf("\n\tTry: songoftime -f\n");
 			exit(0);
 		}
 		
 		if(startTitle==NULL)
 		{
 			printf("\nA task must be entered for tracking.");
-			printf("\n\tTry: songoftime -s \"TaskName\"");
+			printf("\n\tTry: songoftime -s \"TaskName\"\n");
+			exit(0);
 		}
 
 		openTask(startTitle);
@@ -108,7 +117,7 @@ int main(int argc, char *argv[ ])
 		if(alreadyOpen==0)//If no task is open, print error message and quit
 		{
 			printf("A task is not currently being tracked.  Please set task to be tracked");
-			printf("\n\tTry: songoftime -s \"TaskName\"");
+			printf("\n\tTry: songoftime -s \"TaskName\"\n");
 			exit(0);
 		}
 
@@ -117,32 +126,32 @@ int main(int argc, char *argv[ ])
 	}
 	else if(reportFlag==1)//Report time statistics via command line
 	{
-
+		printf("Unimplemented feature.  Will be added in V1.1 (currently 1.0)");
+		exit(0);
 	}
-
-}
-
-//Checks if a given filepath exists already or not
-//Retval: int
-//	0- if specified file doesnt exist.
-//	1- if specified file does exist
-int checkExists(char *fPath)
-{
-	if(fPath==NULL)
-		return 0;
-
-	std::ifstream inFile(fPath);
-	if(inFile.good() )
+	else if(listFlag==1)//List all tasks in history via command line
 	{
-		return 1;
+		printf("Unimplemented feature.  Will be added in V1.1 (currently 1.0)");
+		exit(0);
 	}
-	else
-	{
-		return 0;
-	}
-}
+
+}//End of main
+////////////////////////////////////////////////////////////////
+//End main execution
+////////////////////////////////////////////////////////////////
 
 
+
+
+
+
+/////////////////////////////////////////////////////////////////
+//BEGIN FEATURE FUNCTIONS
+//	Called from main to do work
+//	of implementing single feature
+/////////////////////////////////////////////////////////////////
+
+//Called for -s option
 //Does work of writing to task file
 //char * taskName : String containing task to close in file
 //Retval: int
@@ -171,6 +180,8 @@ int openTask(char *taskName)
 	return 0;
 }
 
+
+//Called for -f option
 //Does work of closing task in file, and updating statistics
 //Retval: int
 //	0- on success
@@ -217,6 +228,41 @@ int closeTask()
 	free(readBuffer);
 	return 0;
 }
+
+//////////////////////////////////////////////////////////////
+//End FEATURE FUNCTIONS
+//////////////////////////////////////////////////////////////
+
+
+
+
+
+//////////////////////////////////////////////////////////////
+//Begin Utility functions
+//	Used for checking files,
+//	basic bool routines etc.
+//////////////////////////////////////////////////////////////
+
+//Checks if a given filepath exists already or not
+//Retval: int
+//	0- if specified file doesnt exist.
+//	1- if specified file does exist
+int checkExists(char *fPath)
+{
+	if(fPath==NULL)
+		return 0;
+
+	std::ifstream inFile(fPath);
+	if(inFile.good() )
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 
 //Updates the .timeSong.html file
 //Retval: int
@@ -458,3 +504,6 @@ char* getFilePath(char *fName)
 
 	return filePath;
 }
+//////////////////////////////////////////////////////////////
+//End Utility functions
+//////////////////////////////////////////////////////////////
