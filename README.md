@@ -16,8 +16,10 @@ user's home directory) with a web browser.
 
 Initial testing has been completed.  The following additions will take place
 in this sprint.
-1) -l option will list all tasks in descending order of time spent
-2) -r option will report Statistics concerning the tracked tasks
+1) -l option will list all tasks.					DONE
+2) -r option will report Statistics concerning the tracked tasks	DONE
+
+These additions have been made for V1.1.
 
 Several things I'm considering adding in the future (after another usage iteration):
 1) -o opens .timeSong.html in web browser automatically
