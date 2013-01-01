@@ -135,7 +135,6 @@ int main(int argc, char *argv[ ])
 	}
 	else if(listFlag==1)//List all tasks in history via command line
 	{
-		printf("\n");//Move to new line
 		listTasks();
 		exit(0);
 	}
