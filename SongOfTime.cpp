@@ -245,7 +245,6 @@ void listTasks()
 	//	read from file
 	//if it doesnt
 		//print that no tasks are present
-	
 
 	//Check if .allTasks.sot exists
 	int allTasksExists=checkExists( getFilePath((char *)".allTasks.sot") );
@@ -269,13 +268,42 @@ void listTasks()
 		printf("No tasks found in current history");
 	}
 }
-
 //Called for -r option
 //Prints task statistics to console
 //Retval: void
 void reportTasks()
 {
+	//Check if .allTasks.sot exists
+	//If it does()
+	//	read from file
+	//if it doesnt
+	//	print that no tasks are present
 
+
+
+	//Check if .allTasks.sot exists
+	int allTasksExists=checkExists( getFilePath((char *)".allTasks.sot") );
+
+	//If it does
+	if(allTasksExists)
+	{
+		int numTasks=0;
+		Task *taskBuffer;
+		readTasksToBuffer(&taskBuffer,&numTasks);
+		int i=0;
+		for(i=0;i<numTasks;i++)
+		{
+	                int hWorked=taskBuffer[i].millisWorked/60/60;
+        	        int mWorked=(taskBuffer[i].millisWorked-hWorked*60*60)/60;
+			printf("\t%s-\t%d hours, %d minutes\n",taskBuffer[i].taskString,hWorked,mWorked);
+		}
+		free(taskBuffer);
+	}
+	else//If it doesn't
+	{
+		//Print that no tasks are present
+		printf("No tasks found in current history");
+	}
 }
 
 //////////////////////////////////////////////////////////////
