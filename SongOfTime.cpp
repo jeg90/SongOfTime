@@ -29,6 +29,7 @@ int updateHTMLFile();
 int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate);
 void listTasks();
 int readTasksToBuffer(Task **, int *);
+void reportTasks();
 
 
 
@@ -130,6 +131,7 @@ int main(int argc, char *argv[ ])
 	else if(reportFlag==1)//Report time statistics via command line
 	{
 		printf("Unimplemented feature.  Will be added in V1.1 (currently 1.0)");
+		reportTasks();
 		exit(0);
 	}
 	else if(listFlag==1)//List all tasks in history via command line
@@ -266,6 +268,14 @@ void listTasks()
 		//Print that no tasks are present
 		printf("No tasks found in current history");
 	}
+}
+
+//Called for -r option
+//Prints task statistics to console
+//Retval: void
+void reportTasks()
+{
+
 }
 
 //////////////////////////////////////////////////////////////
