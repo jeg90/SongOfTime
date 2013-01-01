@@ -87,7 +87,7 @@ int main(int argc, char *argv[ ])
     	}
 
 	//Error case: bad args configuration
-	if(errFlag==1 || (startFlag==1 && finishFlag==1) || (startFlag==0 && finishFlag==0 && listFlag==0))
+	if(errFlag==1 || (startFlag==1 && finishFlag==1) || (startFlag==0 && finishFlag==0 && listFlag==0 && reportFlag==0))
 	{
 		printf("\nImproper arguments, Try: songoftime [-s TaskName] [-f] [-r]\n");
 		exit(0);
