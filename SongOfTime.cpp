@@ -130,7 +130,6 @@ int main(int argc, char *argv[ ])
 	}
 	else if(reportFlag==1)//Report time statistics via command line
 	{
-		printf("Unimplemented feature.  Will be added in V1.1 (currently 1.0)");
 		reportTasks();
 		exit(0);
 	}
