@@ -293,7 +293,7 @@ void reportTasks()
 		{
 	                int hWorked=taskBuffer[i].millisWorked/60/60;
         	        int mWorked=(taskBuffer[i].millisWorked-hWorked*60*60)/60;
-			printf("\t%s-\t%d hours, %d minutes\n",taskBuffer[i].taskString,hWorked,mWorked);
+			printf("\t%d hours, %d minutes:\t%s\n",hWorked,mWorked,taskBuffer[i].taskString);
 		}
 		free(taskBuffer);
 	}
