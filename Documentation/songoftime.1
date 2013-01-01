@@ -14,12 +14,16 @@ commands (using the -s option to start, and the -f option to end
 respectively).  Statistics can then be displayed to the user using the -r 
 option.
 .SH OPTIONS
-.IP "-s \'Task Name\' "
-begin tracking a task with the given task name enclosed in quotes
 .IP -f
-finish tracking the current task.
+finish tracking the current task.  Only valid when there is a current open task.
+.IP -l
+List tasks in current history
 .IP -r
-report tracking statistics to the console. (Unimplemented)
+report tracking statistics to the console. Displays approx time spent, and task
+name.
+.IP "-s \'Task Name\' "
+begin tracking a task with the given task name enclosed in quotes.  Only valid 
+when task is not already open.
 .SH SEE ALSO
 No related commands.
 .SH BUGS
