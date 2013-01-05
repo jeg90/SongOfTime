@@ -28,6 +28,7 @@ int checkExists(char *filePath);
 int updateHTMLFile();
 int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate);
 void listTasks();
+void clearTasks();
 int readTasksToBuffer(Task **, int *);
 void reportTasks();
 
@@ -153,6 +154,11 @@ int main(int argc, char *argv[ ])
 	else if(listFlag==1)//List all tasks in history via command line
 	{
 		listTasks();
+		exit(0);
+	}
+	else if(clearHistFlag==1)//Delete all history
+	{
+		clearTasks();
 		exit(0);
 	}
 
@@ -319,6 +325,39 @@ void reportTasks()
 		//Print that no tasks are present
 		printf("No tasks found in current history");
 	}
+}
+
+//Called for -c option
+//Deletes task history
+//Retval: void
+void clearTasks()
+{
+
+	//Check if a task is currently open
+	//If so, print warning message and quit
+	//if not
+	//	delete .allTasks.sot
+	//	delete .timeSong.html
+
+	//Check if task is currently open
+	int existRes=checkExists(getFilePath((char *)".curTask.sot"));
+
+	//If so, print warning message and quit
+	if(existRes)
+	{
+		printf("\nUnable to delete history with task open.  Close task before deleting history.\n");
+	}
+	else//If not, delete task history files.
+	{
+		int delAllRes=0, delHTMLRes=0;
+		delAllRes=remove(getFilePath((char *)".allTasks.sot"));
+		delHTMLRes=remove(getFilePath((char *)".timeSong.html"));
+		if(delAllRes && checkExists(getFilePath((char *)".allTasks.sot")))
+			printf("\nWarning: unable to delete file %s\n",getFilePath((char *)".allTasks.sot"));
+		if(delHTMLRes && checkExists(getFilePath((char *)".timeSong.html")))
+			printf("\nWarning: unable to delete file %s\n",getFilePath((char *)".timeSong.html"));
+	}
+	
 }
 
 //////////////////////////////////////////////////////////////
