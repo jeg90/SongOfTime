@@ -30,6 +30,7 @@ int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate
 void listTasks();
 void clearTasks();
 int readTasksToBuffer(Task **, int *);
+int writeBufferToFile(Task *, int);
 void reportTasks();
 
 
@@ -419,6 +420,25 @@ int readTasksToBuffer(Task** buffer,int *numTasks)
 
 	//Return 0 for success.
 	return 0;
+}
+
+//Writes the provided buffer of Task structs to the allTasks.sot file
+//Retval: int
+//	0- successful execution
+//	1- invalid arguments
+//	2- File I/O Error
+int writeBufferToFile(Task *buffer, int numTasks)
+{
+	if(numTasks<=0 || buffer==NULL)
+	{
+		return (1);
+	}
+
+	//Create ofile object
+	//Write numTasks to file
+	//For each task
+	//	write it to file
+	//Close ofile object and return
 }
  
 //Checks if a given filepath exists already or not
