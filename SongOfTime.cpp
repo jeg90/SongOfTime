@@ -47,6 +47,11 @@ int main(int argc, char *argv[ ])
 	int finishFlag=0;
 	int reportFlag=0;
 	int listFlag=0;
+	int clearHistFlag=0;
+	int delSingleFlag=0;
+
+	//0 for no particular sort, 1 for MRU, 2 for Total Time Spent (TTS)
+	int sortFlag=0;
 
 	//Start Title 
     	char *startTitle=NULL;
@@ -56,10 +61,22 @@ int main(int argc, char *argv[ ])
     	extern int optind, optopt;
 
 	//Iterate through command line options to set mode flags
-    	while ((c = getopt(argc, argv, "s:frl?")) != -1) 
+    	while ((c = getopt(argc, argv, "s:d:cRTfrl?")) != -1) 
 	{
         	switch(c) 
 		{
+			case 'c':
+				clearHistFlag=1;
+				break;
+			case 'd':
+				delSingleFlag=1;
+				break;
+			case 'R':
+				sortFlag=1;
+				break;
+			case 'T':
+				sortFlag=2;
+				break;
         		case 's':
             			startTitle = optarg;
 				if(startTitle==NULL)
