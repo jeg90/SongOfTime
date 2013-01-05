@@ -2,22 +2,27 @@ SongOfTime
 ==========
 
 A command line Time Management/Tracker Utility.
-
+Version: 1.1 Release
 Created by: Jason Gerlowski
 University of Pittsburgh
 jeg90@pitt.edu
 
 STATUS
 ------
-Version 1.0 has been placed on github after initial development.
-Both -s and -f options have been implemented.
-Reports can be viewed by opening the .timeSong.html file (located in
-user's home directory) with a web browser.
+Version 1.1 in branch 'master' on github.
+-s option implemented
+-f option implemented
+-l option implemented
+-r option implemented
 
-Initial testing has been completed.  The following additions will take place
-in this sprint.
-1) -l option will list all tasks.					DONE
-2) -r option will report Statistics concerning the tracked tasks	DONE
+Additionally, reports can be viewed by opening the '.timeSong.html' file
+(located in the user's home directory) with a web browser.
+
+The following additions will be made for V1.2:
+-c (Clear history option) will be implemented
+-d "Task Name" (Delete single task) will be implemented
+-R (sort by most recent access) will be implemented
+-T (sort by total time spent) will be implemented
 
 These additions have been made for V1.1.
 
@@ -62,6 +67,3 @@ in a hidden file(s) in the users home directory.
 
 Statistics can then be reported on the command line using:
 songoftime -r
-
-Alternatively, usage statistics can be viewed in a browser window
-by opening a produced html file (.timeSong.html found in the users home directory)
