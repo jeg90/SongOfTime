@@ -286,7 +286,7 @@ void listTasks()
 	else//If it doesn't
 	{
 		//Print that no tasks are present
-		printf("No tasks found in current history");
+		printf("No tasks found in current history\n");
 	}
 }
 //Called for -r option
@@ -323,7 +323,7 @@ void reportTasks()
 	else//If it doesn't
 	{
 		//Print that no tasks are present
-		printf("No tasks found in current history");
+		printf("No tasks found in current history\n");
 	}
 }
 
