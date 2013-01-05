@@ -434,11 +434,22 @@ int writeBufferToFile(Task *buffer, int numTasks)
 		return (1);
 	}
 
-	//Create ofile object
-	//Write numTasks to file
 	//For each task
 	//	write it to file
 	//Close ofile object and return
+	//Create ofstream object
+	char *allTasksPath=getFilePath((char *)".allTasks.sot");	
+	std::ofstream taskFileWriter(allTasksPath);
+
+	//Write numTasks to file
+	taskFileWriter.write((char *)&numTasks,sizeof(int));//Write number of structs
+	int i;
+	for(i=0;i<numTasks;i++)
+	{
+		taskFileWriter.write((char *)(buffer+i),sizeof(Task));
+	}
+	taskFileWriter.close();
+	return 0;
 }
  
 //Checks if a given filepath exists already or not
@@ -597,6 +608,7 @@ int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate
 
 		/////////////////////////////////////////////
 		//Rewrite struct information back into file
+		/////////////////////////////////////////////
 		std::ofstream taskFileWriter(allTasksPath);
 		taskFileWriter.write((char *)&numStructs,sizeof(int));//Write number of structs
 		for(i=0;i<numStructs;i++)
@@ -604,7 +616,6 @@ int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate
 			taskFileWriter.write((char *)(taskArr+i),sizeof(Task));
 		}
 		taskFileWriter.close();
-		/////////////////////////////////////////////
 		return 0;		
 	}
 }
