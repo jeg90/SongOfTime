@@ -57,6 +57,7 @@ int main(int argc, char *argv[ ])
 
 	//Start Title 
     	char *startTitle=NULL;
+	char *delTitle=NULL;
 
 	//getopt flags and variables
     	extern char *optarg;
@@ -72,6 +73,11 @@ int main(int argc, char *argv[ ])
 				break;
 			case 'd':
 				delSingleFlag=1;
+				delTitle = optarg;
+				if(delTitle ==NULL)
+				{
+					errFlag=1;
+				}
 				break;
 			case 'R':
 				sortFlag=1;
