@@ -2,7 +2,7 @@
 .SH NAME
 songoftime - A Time Tracking Utility for Linux
 .SH SYNOPSIS
-songoftime [-s "Task Name"] [-f] 
+songoftime [-s "Task Name"] [-d "Task Name"] [-f] [-c] [-l] [-r] [-T]
 .SH DESCRIPTION
 .B songoftime 
 is a utility for tracking time spent on different tasks.  This may be useful for
@@ -16,16 +16,25 @@ options.
 .SH OPTIONS
 .IP -c
 clears all task history.  Only allowed when no task is currently being tracked.
+.IP "-d \'Task Name\'"
+deletes the single Task specified by Task Name argument.
 .IP -f
 finish tracking the current task.  Only valid when there is a current open task.
 .IP -l
 List tasks in current history
+.IP -R
+Sorts tasks in descending order of the most recent use date for display.  Option
+only valid when used with -r or -l reporting options.
 .IP -r
 report tracking statistics to the console. Displays approx time spent, and task
 name.
 .IP "-s \'Task Name\' "
 begin tracking a task with the given task name enclosed in quotes.  Only valid 
 when task is not already open.
+.IP -T
+Sorts tasks in descending order of the most time consuming tasks (those the user
+has spend the most time on.  Option only valid when used with the -r or -l reporting
+options.
 .SH SEE ALSO
 No related commands.
 .SH BUGS
