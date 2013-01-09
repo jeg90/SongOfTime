@@ -394,10 +394,17 @@ int delTask(char *delTitle)
 	int tIndex=findTaskIndex(taskBuffer,numTasks,delTitle);
 
 	//Remove task at index found above
-	int remRes=removeIndex(taskBuffer,&numTasks,tIndex);
+	if(tIndex>=0)
+	{
+		int remRes=removeIndex(taskBuffer,&numTasks,tIndex);
 
-	//Write tasks back to buffer.
-	writeBufferToFile(taskBuffer,numTasks);
+		//Write tasks back to buffer.
+		writeBufferToFile(taskBuffer,numTasks);
+	}
+	else
+	{
+		printf("\tTask \"%s\" does not exist.\n",delTitle);
+	}
 	return 0;
 }
 //////////////////////////////////////////////////////////////
