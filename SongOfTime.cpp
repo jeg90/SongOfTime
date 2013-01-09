@@ -301,7 +301,7 @@ void listTasks(int sortFlag)
 		int i=0;
 		for(i=0;i<numTasks;i++)
 		{
-			printf("\t%s\n",taskBuffer[i].taskString);
+			printf("\t%s.%s.\n",taskBuffer[i].taskString,taskBuffer[i].dateString);
 		}
 		free(taskBuffer);
 	}
@@ -455,21 +455,90 @@ void sortBuffer(Task *buffer,int numTasks,int sortFlag)
 
 //Comparison function for comparing dates of Task structs
 //Retval: int
-//	-1 if elem1<elem2
+//	-1 if elem1>elem2
 //	0 if elem1==elem2
-//	1 if elem1>elem2
+//	1 if elem1<elem2
 int compRecent(const void * elem1, const void * elem2)
 {
+	//Cast ptr's to tasks
 	Task t1=*((Task*)elem1);
 	Task t2=*((Task*)elem2);
+
+	//Make buffer copy's
+	char *t1DateBuff=(char *) malloc(strlen(t1.dateString));
+	char *t2DateBuff=(char *) malloc(strlen(t2.dateString));
+
+	//Strtok t1DateBuff to be - delimited
+	char *year1=strtok(t1DateBuff,"-\n");
+	char *month1=strtok(NULL,"-\n");
+	char *date1=strtok(NULL,"-\n");
+
+	//Strtok t2DateBuff to be - delimited
+        char *year2=strtok(t2DateBuff,"-\n");
+	char *month2=strtok(NULL,"-\n");
+        char *date2=strtok(NULL,"-\n");
+
+	//Declare int values for parsing strings for comparison
+	int y1,y2,m1,m2,d1,d2;
+	y1=atoi(year1);
+	y2=atoi(year2);
+	m1=atoi(month1);
+	m2=atoi(month2);
+	d1=atoi(date1);
+	d2=atoi(date2);
+
+	//If years are different, use those to order tasks
+	if(y1>y2)
+	{
+		free(t1DateBuff);
+		free(t2DateBuff);
+		return -1;
+	}
+	else if(y1<y2)
+	{
+		free(t1DateBuff);
+		free(t2DateBuff);
+		return 1;
+	}
+
+	//If years are the same, use months to order tasks
+	if(m1>m2)
+	{
+		free(t1DateBuff);
+		free(t2DateBuff);
+		return -1;
+	}
+	else if(m1<m2)
+	{
+		free(t1DateBuff);
+		free(t2DateBuff);
+		return 1;
+	}
+
+	//If years and months are the same, use dates (day-of-month) to order tasks
+	if(d1>d2)
+	{
+		free(t1DateBuff);
+		free(t2DateBuff);
+		return -1;
+	}
+	else if(d1<d2)
+	{
+		free(t1DateBuff);
+		free(t2DateBuff);
+		return 1;
+	}
+
+	//Since the day, month, and year are the same, these dateStrings
+	//and the Tasks they belong to, are functionally equivalent (equal)
 	return 0;
 }
 
 //Comparison function for comparing total time spent on Tasks
 //Retval: int
-//	-1 if elem1<elem2
+//	-1 if elem1>elem2
 //	0 if elem1==elem2
-//	1 if elem1>elem2
+//	1 if elem1<elem2
 int compTime(const void * elem1, const void * elem2)
 {
 	//Casting
