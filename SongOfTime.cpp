@@ -27,11 +27,11 @@ int createBaseHTMLFile();
 int checkExists(char *filePath);
 int updateHTMLFile();
 int updateAllTasksFile(char *taskName, char *curStartMillis, char *lastStartDate);
-void listTasks();
+void listTasks(int sortFlag);
 void clearTasks();
 int readTasksToBuffer(Task **, int *);
 int writeBufferToFile(Task *, int);
-void reportTasks();
+void reportTasks(int sortFlag);
 int delTask(char *);
 int findTaskIndex(Task *,int,char *);
 int removeIndex(Task *,int *,int);
@@ -157,12 +157,12 @@ int main(int argc, char *argv[ ])
 	}
 	else if(reportFlag==1)//Report time statistics via command line
 	{
-		reportTasks();
+		reportTasks(sortFlag);
 		exit(0);
 	}
 	else if(listFlag==1)//List all tasks in history via command line
 	{
-		listTasks();
+		listTasks(sortFlag);
 		exit(0);
 	}
 	else if(clearHistFlag==1)//Delete all history
@@ -273,7 +273,7 @@ int closeTask()
 //Called for -l option
 //Prints tasks to console
 //Retval: void
-void listTasks()
+void listTasks(int sortFlag)
 {
 	//Check if .allTasks.sot exists
 	//If it does()
@@ -306,7 +306,7 @@ void listTasks()
 //Called for -r option
 //Prints task statistics to console
 //Retval: void
-void reportTasks()
+void reportTasks(int sortFlag)
 {
 	//Check if .allTasks.sot exists
 	//If it does()
