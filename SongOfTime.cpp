@@ -32,7 +32,8 @@ void clearTasks();
 int readTasksToBuffer(Task **, int *);
 int writeBufferToFile(Task *, int);
 void reportTasks();
-
+int delTask(char *);
+int findTaskIndex(Task *,int,char *);
 
 
 /////////////////////////////////////////////////
@@ -166,6 +167,11 @@ int main(int argc, char *argv[ ])
 	else if(clearHistFlag==1)//Delete all history
 	{
 		clearTasks();
+		exit(0);
+	}
+	else if(delSingleFlag==1)
+	{
+		delTask(delTitle);
 		exit(0);
 	}
 
@@ -367,10 +373,35 @@ void clearTasks()
 	
 }
 
+//Called for -d option:
+//Deletes a task from the task history
+//Retval: int
+//	0- successful execution
+//	1- given task does not exist
+//	2- invalid arguments
+int delTask(char *delTitle)
+{
+	if(delTitle==NULL)
+		return(2);
+
+	//Read in tasks to buffer.
+	int numTasks=0;
+        Task *taskBuffer;
+        readTasksToBuffer(&taskBuffer,&numTasks);
+
+	//Find index of task w/ title matching delTitle
+	int tIndex=findTaskIndex(taskBuffer,numTasks,delTitle);
+
+	//Remove task at index found above
+	int remRes=removeIndex(taskBuffer,&numTasks,tIndex);
+
+	//Write tasks back to buffer.
+	writeBufferToFile(taskBuffer,numTasks);
+	return 0;
+}
 //////////////////////////////////////////////////////////////
 //End FEATURE FUNCTIONS
 //////////////////////////////////////////////////////////////
-
 
 
 
@@ -380,6 +411,26 @@ void clearTasks()
 //	Used for checking files,
 //	basic bool routines etc.
 //////////////////////////////////////////////////////////////
+
+//Searches linearly through buffer for task w/ matching title to given
+//Retval: int
+//	-1- Task not found in buffer
+//	Non-negative number- the index in the buffer of the Task
+int findTaskIndex(Task *buffer,int bufferSize, char *taskTitle)
+{
+	return -1;
+}
+
+
+//Removes the index specified by the third argument from the provided buffer
+//Retval: int
+//	0- successful execution
+//	1- Invalid arguments
+//	2- other error
+int removeIndex(Task *buffer,int *numTasks,int tIndex)
+{
+	return -1;
+}
 
 //Reads Task structs into a buffer
 //Retval: int
