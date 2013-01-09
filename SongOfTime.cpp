@@ -301,7 +301,7 @@ void listTasks(int sortFlag)
 		int i=0;
 		for(i=0;i<numTasks;i++)
 		{
-			printf("\t%s.%s.\n",taskBuffer[i].taskString,taskBuffer[i].dateString);
+			printf("\t%s\n",taskBuffer[i].taskString);
 		}
 		free(taskBuffer);
 	}
