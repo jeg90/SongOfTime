@@ -443,10 +443,18 @@ int findTaskIndex(Task *buffer,int bufferSize, char *taskTitle)
 //Retval: int
 //	0- successful execution
 //	1- Invalid arguments
-//	2- other error
 int removeIndex(Task *buffer,int *numTasks,int tIndex)
 {
-	return -1;
+	//Check for invalid args
+	if(buffer==NULL || numTasks==NULL || tIndex>=(*numTasks))
+		return 1;
+
+	//Move the last struct to the index-thats-being-deleted
+	int lastIndex=(*numTasks)-1;
+	buffer[tIndex]=buffer[lastIndex];
+	//Decrement the numTasks counter by one.
+	*numTasks=(*numTasks)-1;
+	return 0;
 }
 
 //Reads Task structs into a buffer
