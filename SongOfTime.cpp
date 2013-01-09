@@ -35,6 +35,7 @@ void reportTasks(int sortFlag);
 int delTask(char *);
 int findTaskIndex(Task *,int,char *);
 int removeIndex(Task *,int *,int);
+void sortBuffer(Task *taskBuffer,int numTasks,int sortFlag);
 
 
 /////////////////////////////////////////////////
@@ -275,12 +276,7 @@ int closeTask()
 //Retval: void
 void listTasks(int sortFlag)
 {
-	//Check if .allTasks.sot exists
-	//If it does()
-	//	read from file
-	//if it doesnt
-		//print that no tasks are present
-
+	
 	//Check if .allTasks.sot exists
 	int allTasksExists=checkExists( getFilePath((char *)".allTasks.sot") );
 
@@ -290,6 +286,18 @@ void listTasks(int sortFlag)
 		int numTasks=0;
 		Task *taskBuffer;
 		readTasksToBuffer(&taskBuffer,&numTasks);
+
+		//If no tasks were there..
+		if(numTasks==0)
+		{
+			//Print that no tasks are present
+			printf("No tasks found in current history\n");
+			return;
+		}
+
+		//SORT HERE
+		sortBuffer(taskBuffer,numTasks,sortFlag);
+
 		int i=0;
 		for(i=0;i<numTasks;i++)
 		{
@@ -325,6 +333,16 @@ void reportTasks(int sortFlag)
 		int numTasks=0;
 		Task *taskBuffer;
 		readTasksToBuffer(&taskBuffer,&numTasks);
+
+		//If there are no tasks, print warning and return
+		if(numTasks==0)
+		{
+			printf("No tasks found in the current history\n");
+		}
+
+		//SORT HERE
+		sortBuffer(taskBuffer,numTasks,sortFlag);
+
 		int i=0;
 		for(i=0;i<numTasks;i++)
 		{
@@ -417,8 +435,15 @@ int delTask(char *delTitle)
 //////////////////////////////////////////////////////////////
 //Begin Utility functions
 //	Used for checking files,
-//	basic bool routines etc.
+//	basic bool routines, sorting etc.
 //////////////////////////////////////////////////////////////
+
+
+void sortBuffer(Task *buffer,int numTasks,int sortFlag)
+{
+	return;
+}
+
 
 //Searches linearly through buffer for task w/ matching title to given
 //Retval: int
