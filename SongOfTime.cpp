@@ -34,6 +34,7 @@ int writeBufferToFile(Task *, int);
 void reportTasks();
 int delTask(char *);
 int findTaskIndex(Task *,int,char *);
+int removeIndex(Task *,int *,int);
 
 
 /////////////////////////////////////////////////
@@ -418,6 +419,22 @@ int delTask(char *delTitle)
 //	Non-negative number- the index in the buffer of the Task
 int findTaskIndex(Task *buffer,int bufferSize, char *taskTitle)
 {
+
+	//Check for invalid args
+	if(buffer==NULL)
+		return -1;
+	if(taskTitle==NULL)
+		return -1;
+
+
+	int i=0;
+	for(i=0;i<bufferSize;i++)
+	{
+		if( strcmp(buffer[i].taskString,taskTitle)==0 )
+		{
+			return i;
+		}
+	}
 	return -1;
 }
 
