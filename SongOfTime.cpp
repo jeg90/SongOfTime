@@ -377,7 +377,7 @@ void clearTasks()
 	//If so, print warning message and quit
 	if(existRes)
 	{
-		printf("\nUnable to delete history with task open.  Close task before deleting history.\n");
+		printf("\tUnable to delete history with task open.  Close task before deleting history.\n");
 	}
 	else//If not, delete task history files.
 	{
@@ -403,6 +403,13 @@ int delTask(char *delTitle)
 	if(delTitle==NULL)
 		return(2);
 
+	int openRes=checkExists(getFilePath((char *)".curTask.sot"));
+	if(openRes)
+	{
+		printf("\tUnable to delete element from history with task open.  Close task before deleting from history.\n");
+		return 0;
+	}
+	
 	//Read in tasks to buffer.
 	int numTasks=0;
         Task *taskBuffer;
