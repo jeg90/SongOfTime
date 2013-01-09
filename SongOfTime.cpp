@@ -511,7 +511,7 @@ int readTasksToBuffer(Task** buffer,int *numTasks)
 //	2- File I/O Error
 int writeBufferToFile(Task *buffer, int numTasks)
 {
-	if(numTasks<=0 || buffer==NULL)
+	if(numTasks<0 || buffer==NULL)
 	{
 		return (1);
 	}
