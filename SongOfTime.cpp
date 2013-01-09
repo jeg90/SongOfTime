@@ -36,8 +36,8 @@ int delTask(char *);
 int findTaskIndex(Task *,int,char *);
 int removeIndex(Task *,int *,int);
 void sortBuffer(Task *taskBuffer,int numTasks,int sortFlag);
-
-
+int compTime(const void * elem1, const void * elem2);
+int compRecent(const void * elem1, const void * elem2);
 /////////////////////////////////////////////////
 //Begin main execution
 /////////////////////////////////////////////////
@@ -438,10 +438,39 @@ int delTask(char *delTitle)
 //	basic bool routines, sorting etc.
 //////////////////////////////////////////////////////////////
 
-
+//Sorts buffer based on sortFlag option- basically wrapped call to qsort
+//Retval: void
 void sortBuffer(Task *buffer,int numTasks,int sortFlag)
 {
+	//Do no sorting if flag=0
+	if(sortFlag==0)
+		return;
+	
+	if(sortFlag==1)
+		qsort(buffer,numTasks,sizeof(Task),compRecent);
+	else if(sortFlag==2)
+		qsort(buffer,numTasks,sizeof(Task),compTime);
 	return;
+}
+
+//Comparison function for comparing dates of Task structs
+//Retval: int
+//	-1 if elem1<elem2
+//	0 if elem1==elem2
+//	1 if elem1>elem2
+int compRecent(const void * elem1, const void * elem2)
+{
+	return 0;
+}
+
+//Comparison function for comparing total time spent on Tasks
+//Retval: int
+//	-1 if elem1<elem2
+//	0 if elem1==elem2
+//	1 if elem1>elem2
+int compTime(const void * elem1, const void * elem2)
+{
+	return 0;
 }
 
 
