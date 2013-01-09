@@ -460,6 +460,8 @@ void sortBuffer(Task *buffer,int numTasks,int sortFlag)
 //	1 if elem1>elem2
 int compRecent(const void * elem1, const void * elem2)
 {
+	Task t1=*((Task*)elem1);
+	Task t2=*((Task*)elem2);
 	return 0;
 }
 
@@ -470,6 +472,13 @@ int compRecent(const void * elem1, const void * elem2)
 //	1 if elem1>elem2
 int compTime(const void * elem1, const void * elem2)
 {
+	//Casting
+	Task t1=*((Task*)elem1);
+	Task t2=*((Task*)elem2);
+
+	//Comparison and return
+	if(t1.millisWorked>t2.millisWorked) return -1;
+	if(t1.millisWorked<t2.millisWorked) return 1;
 	return 0;
 }
 
